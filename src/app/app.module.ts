@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShareModule } from './share/share.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { FormComponent } from './form/form.component';
+import { SurveyComponent } from './survey/survey.component';
+import { TableComponent } from './table/table.component';
 
 
 
@@ -15,7 +17,9 @@ import { FormComponent } from './form/form.component';
   declarations:[
     AppComponent,
     ToolbarComponent,
-    FormComponent
+    FormComponent,
+    SurveyComponent,
+    TableComponent
   ],
 
   imports: [
