@@ -1,4 +1,3 @@
-
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <button pButton pRipple type="button" icon="pi pi-bars" class="p-button-rounded p-button-text p-button-plain"
@@ -13,5 +12,6 @@
 </p-toolbar>
 <p-sidebar [(visible)]="showSidebar" [baseZIndex]="10000" [showCloseIcon]="false" (onHide)="showSidebar = false">
   <h3>選單</h3>
+  <p-divider></p-divider>
+  <p-panelMenu [model]="panelMenu"></p-panelMenu>
 </p-sidebar>
-

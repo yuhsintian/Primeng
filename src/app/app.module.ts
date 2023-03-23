@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShareModule } from './share/share.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { FormComponent } from './form/form.component';
 
 
 
@@ -13,7 +14,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 @NgModule({
   declarations:[
     AppComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    FormComponent
   ],
 
   imports: [
