@@ -14,6 +14,12 @@ const panelMenu: any[] = [
     icon: 'pi pi-fw pi-table',
     routerLink: ['/table'],
   },
+     //無下拉選單
+     {
+      label: '問卷',
+      icon: 'pi pi-fw pi-check-square',
+      routerLink: ['/survey'],
+    },
   //有下拉選單(範例)
   {
     label: '社群',

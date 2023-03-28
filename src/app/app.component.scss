@@ -4,14 +4,43 @@ p-card {
 }
 
 //強制更改Primeng預設樣式
-:host ::ng-deep {
-  .p-card {
-    border-radius: 10px;
-  }
-  .p-button{
-    border-radius: 6px;
-  }
+// :host ::ng-deep {
+//   .p-card {
+//     border-radius: 10px;
+//   }
+//   .p-button{
+//     border-radius: 6px;
+//   }
+
+// .p-password{
+//   border-radius: 6px;
+// }
+//}
+
+:host ::ng-deep .p-dropdown {
+  min-width: 100%;
+  max-width: 100%;
 }
+
+:host ::ng-deep .p-calendar {
+  min-width: 100%;
+  max-width: 100%;
+}
+:host ::ng-deep .textarea {
+  min-width: 100%;
+  max-width: 100%;
+}
+:host ::ng-deep .p-checkbox {
+  width: 100%;
+  border-radius: 6px;
+  //上、右、下、左
+  margin: 40px 0  ;
+}
+
+// :host ::ng-deep .p-radioBotton {
+//   //上、右、下、左
+//   margin: 40px 0  ;
+// }
 
 p-button,
 button {

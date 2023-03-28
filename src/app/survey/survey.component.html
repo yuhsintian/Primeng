@@ -19,54 +19,100 @@
     </div>
 
     <div class="row">
-      <div class="col-4">
-        <div class="flex flex-column gap-2">
-          <label>出生年</label>
-          <input placeholder="西元" pInputText>
+      <div class="col-6">
+        <label for="inputPassword5" class="form-label">密碼</label>
+        <input type="密碼" id="inputPassword5" class="form-control" aria-labelledby="passwordHelpBlock">
+        <div id="passwordHelpBlock" class="form-text">
         </div>
       </div>
-      <div class="col-4">
-        <div class="flex flex-column gap-2">
-          <label>出生月</label>
-          <input placeholder="出生月" pInputText>
+
+      <div class="col-6">
+        <p-checkbox label="Angular"></p-checkbox>
+        <p-checkbox label="bonita"></p-checkbox>
+        <p-checkbox label="database"></p-checkbox>
+        <p-checkbox label="golang"></p-checkbox>
+      </div>
+
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-6">
+        <label for="inputPassword5" class="form-label">確認密碼</label>
+        <input type="密碼" id="inputPassword5" class="form-control" aria-labelledby="passwordHelpBlock">
+        <div id="passwordHelpBlock" class="form-text">
         </div>
       </div>
-      <div class="col-4">
-        <div class="flex flex-column gap-2">
-          <label>出生日</label>
-          <input placeholder="出生日" pInputText>
+
+      <div class="col-6">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">E-mail</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          <div id="emailHelp" class="form-text"></div>
         </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-12">
-        <div class="flex flex-column gap-2">
-          <label>地址</label>
-          <input placeholder="地址" pInputText>
-        </div>
+      <div class="col-6">
+        <label>城市</label>
+        <p-dropdown [options]="lang" placeholder="台灣" optionLabel="name" [showClear]="true">
+        </p-dropdown>
+      </div>
+
+      <div class="col-6">
+        <label>職業</label>
+        <p-dropdown [options]="lang2" placeholder="學生" optionLabel="name" [showClear]="true">
+        </p-dropdown>
       </div>
     </div>
+
     <div class="row">
       <div class="col-6">
+        <label>填寫日期</label>
         <div class="flex flex-column gap-2">
-          <label>電子郵件</label>
-          <input placeholder="email" pInputText>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="flex flex-column gap-2">
-          <label>連絡電話</label>
-          <input placeholder="09xx" pInputText>
+          <p-calendar [showIcon]="true"></p-calendar>
         </div>
       </div>
 
+      <div class="col-6">
+        <label>性別</label>
+        <div class="flex flex-wrap gap-2">
+          <div class="form-check form-check-inline">
+            <p-radioButton name="pizza" value="Cheese" inputId="ingredient1"></p-radioButton>
+            <label for="ingredient1" class="ml-2">男性</label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <p-radioButton name="pizza" value="Mushroom" inputId="ingredient2"></p-radioButton>
+            <label for="ingredient2" class="ml-2">女性</label>
+          </div>
+
+          <div class="form-check form-check-inline">
+            <p-radioButton name="pizza" value="Pepper" inputId="ingredient3"></p-radioButton>
+            <label for="ingredient3" class="ml-2">其他</label>
+          </div>
+        </div>
+        <!-- <p-radioButton>男性</p-radioButton>
+        <p-radioButton>女性</p-radioButton>
+        <p-radioButton>其他</p-radioButton> -->
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">問題/評論</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="col-6 row align-items-end">
+        <div class="text-align:right">
+          <button pButton pRipple label="送出"></button>
+        </div>
+      </div>
+      </div>
     </div>
-    <div class="text-center">
-    <button pButton pRipple label="Submit" class="p-button-success"></button>
-    <p-button label="Secondary" styleClass="p-button-outlined p-button-secondary"></p-button>
-  </div>
   </p-card>
 </div>
-
-

@@ -40,7 +40,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ChipsModule } from 'primeng/chips';
 
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -84,7 +83,7 @@ import { ChipsModule } from 'primeng/chips';
     ImageModule,
     TabMenuModule,
     TooltipModule,
-    ChipsModule
+    ChipsModule,
   ]
 })
 export class PrimengModule { }
