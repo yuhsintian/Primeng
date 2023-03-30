@@ -80,17 +80,17 @@
         <label>性別</label>
         <div class="flex flex-wrap gap-2">
           <div class="form-check form-check-inline">
-            <p-radioButton name="pizza" value="Cheese" inputId="ingredient1"></p-radioButton>
+            <p-radioButton name="pizza" value="Cheese" inputId="ingredient1" [(ngModel)]="ingredient"></p-radioButton>
             <label for="ingredient1" class="ml-2">男性</label>
           </div>
 
           <div class="form-check form-check-inline">
-            <p-radioButton name="pizza" value="Mushroom" inputId="ingredient2"></p-radioButton>
+            <p-radioButton name="pizza" value="Mushroom" inputId="ingredient2" [(ngModel)]="ingredient"></p-radioButton>
             <label for="ingredient2" class="ml-2">女性</label>
           </div>
 
           <div class="form-check form-check-inline">
-            <p-radioButton name="pizza" value="Pepper" inputId="ingredient3"></p-radioButton>
+            <p-radioButton name="pizza" value="Pepper" inputId="ingredient3" [(ngModel)]="ingredient"></p-radioButton>
             <label for="ingredient3" class="ml-2">其他</label>
           </div>
         </div>
@@ -108,10 +108,10 @@
         </div>
 
         <div class="col-6 row align-items-end">
-        <div class="text-align:right">
-          <button pButton pRipple label="送出"></button>
+          <div class="text-align:right" style="margin-left: 80%;">
+            <button pButton pRipple label="送出"></button>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   </p-card>

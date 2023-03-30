@@ -17,9 +17,31 @@ p-card {
 // }
 //}
 
+:host ::ng-deep{
+  .p-dialog {
+    width: 40%;
+    height: 330px;
+  }
+}
+
+
+//對dt及dd元件進行樣式修改
+dt,
+dd {
+//去掉粗體
+font-weight: normal;
+//使dt與dd在同一行
+display: inline;
+//邊界設為0
+margin: 0;
+//字型大小
+font-size: 18px;
+}
+
 :host ::ng-deep .p-dropdown {
   min-width: 100%;
   max-width: 100%;
+  margin: 10px 0 0 0 ;
 }
 
 :host ::ng-deep .p-calendar {
@@ -46,6 +68,7 @@ p-button,
 button {
   margin-right: 5px;
   border-radius: 6px;
+  margin: 5px 5 0px 5px;
 }
 
 input {
@@ -55,12 +78,25 @@ input {
   margin: 5px 0 20px 0px;
 }
 
+label{
+  margin: 5px 0 0 0px;
+}
+
 h3 {
   text-align: center;
   font-weight: bold;
   //上、右、下、左
   margin: 0 0 10px 0;
 }
+// .h3, h3 {
+//   font-size: calc(1.3rem + .6vw);
+// }
+// h1 {
+//   text-align: center;
+//   font-weight: bold;
+//   //上、右、下、左
+//   margin: 0 0 10px 0;
+// }
 
 //使網頁內容置中
 .container {

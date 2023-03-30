@@ -17,7 +17,7 @@ export class AppModule { }
   styleUrls: ['./survey.component.scss']
 })
 export class SurveyComponent {
-
+  ingredient!: string;
 
   lang = [
     { name: "台灣" },
