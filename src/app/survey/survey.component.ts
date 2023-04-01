@@ -17,6 +17,7 @@ export class AppModule { }
   styleUrls: ['./survey.component.scss']
 })
 export class SurveyComponent {
+  selectedValues: string[] = [];
   ingredient!: string;
 
   lang = [
