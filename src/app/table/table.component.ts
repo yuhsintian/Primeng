@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import Swal from 'sweetalert2';
+import { ApiService } from "../api/api.service";
+import { LazyLoadEvent } from 'primeng/api';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 //定義物件類別
 interface student {
@@ -19,8 +22,27 @@ export class TableComponent {
   edit: boolean = false;
   visible: boolean = false;
   test: string = "123";
+  post_form: FormGroup;
+
+  // 建構類別
+  constructor(private HttpApi: ApiService,
+    private fb: FormBuilder) {
+    this.post_form = this.fb.group({
+      //必填
+      userId: ['', [Validators.required]],
+      title: [''],
+      body: [''],
+    });
+  }
+
+  // 宣告儲存api資料之陣列
+  apiData!: ApiService[];
+  postData!: ApiService[];
+
   ngOnInit(): void {
 
+    this.post()
+    this.getAll()
     this.student = [
       { position: 1, name: 'Rose', height: 178, weight: 43 },
       { position: 2, name: 'Benny', height: 156, weight: 90 },
@@ -45,6 +67,33 @@ export class TableComponent {
     height: '',
     weight: ''
   }]
+
+  post(): void {
+    let body = {
+      title: 1,
+      body: 1,
+      userId: 1
+    }
+    this.HttpApi.postRequest(body)
+      .subscribe(request => {
+        this.postData = request
+        console.log(this.postData)
+      })
+  }
+  getAll() {
+    //   this.HttpApi.getAllRequest().subscribe(request => {
+    //     this.apiData = request;
+    //     console.log(this.apiData);
+    //   });
+  }
+
+  loadPostsLazy(event: LazyLoadEvent) {
+    const page = (event.first! / event.rows!) + 1;
+    this.HttpApi.getAllRequest(page).subscribe(request => {
+      this.apiData = request;
+      console.log(this.apiData);
+    });
+  }
 
   showDialog(student: any): void {
     this.data = student;

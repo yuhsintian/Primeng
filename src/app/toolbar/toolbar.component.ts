@@ -20,6 +20,12 @@ const panelMenu: any[] = [
       icon: 'pi pi-fw pi-check-square',
       routerLink: ['/survey'],
     },
+         //無下拉選單
+         {
+          label: 'CRUD',
+          icon: 'pi pi-fw pi-star',
+          routerLink: ['/crud'],
+        },
   //有下拉選單(範例)
   {
     label: '社群',
