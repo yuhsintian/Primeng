@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Component } from '@angular/core';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   imports: [
-      RadioButtonModule
+      RadioButtonModule,
+      PasswordModule
   ],
   declarations: [],
   bootstrap: [],
@@ -19,6 +21,7 @@ export class AppModule { }
 export class SurveyComponent {
   selectedValues: string[] = [];
   ingredient!: string;
+  value!: string;
 
   lang = [
     { name: "台灣" },

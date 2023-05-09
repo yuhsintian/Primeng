@@ -11,6 +11,7 @@ import { SurveyComponent } from './survey/survey.component';
 import { TableComponent } from './table/table.component';
 import { CrudComponent } from './crud/crud.component';
 import { EditCrudComponent } from './crud/edit-crud/edit-crud.component';
+import { PurchaseComponent } from './purchase/purchase.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { EditCrudComponent } from './crud/edit-crud/edit-crud.component';
     SurveyComponent,
     TableComponent,
     CrudComponent,
-    EditCrudComponent
+    EditCrudComponent,
+    PurchaseComponent
   ],
 
   imports: [

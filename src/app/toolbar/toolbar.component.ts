@@ -8,24 +8,30 @@ const panelMenu: any[] = [
     icon: 'pi pi-fw pi-file-edit',
     routerLink: ['/form'],
   },
-   //無下拉選單
-   {
+  //無下拉選單
+  {
     label: '表格',
     icon: 'pi pi-fw pi-table',
     routerLink: ['/table'],
   },
-     //無下拉選單
-     {
-      label: '問卷',
-      icon: 'pi pi-fw pi-check-square',
-      routerLink: ['/survey'],
-    },
-         //無下拉選單
-         {
-          label: 'CRUD',
-          icon: 'pi pi-fw pi-star',
-          routerLink: ['/crud'],
-        },
+  //無下拉選單
+  {
+    label: '問卷',
+    icon: 'pi pi-fw pi-check-square',
+    routerLink: ['/survey'],
+  },
+  //無下拉選單
+  {
+    label: 'CRUD',
+    icon: 'pi pi-fw pi-star',
+    routerLink: ['/crud'],
+  },
+  //無下拉選單
+  {
+    label: '設備請購單',
+    icon: 'pi pi-fw pi-shopping-cart',
+    routerLink: ['/purchase'],
+  },
   //有下拉選單(範例)
   {
     label: '社群',
