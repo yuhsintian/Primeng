@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api/api.service';
+import { LazyLoadEvent } from 'primeng/api';
 
 //定義物件類別
 interface purchase {
@@ -19,10 +20,10 @@ interface purchase {
 })
 export class PurchaseComponent {
   purchase: purchase[] = [];
-  edit: boolean = false;
   visible: boolean = false;
   addData: boolean = false;
   form: FormGroup;
+  id:any;
 
   constructor(private HttpApi: ApiService,
     private fb: FormBuilder,
@@ -30,36 +31,45 @@ export class PurchaseComponent {
   ) {
     this.form = this.fb.group({
       //必填
-      user: ['', [Validators.required]],
-      id: ['', [Validators.required]],
-      company: ['', [Validators.required]],
-      department: ['', [Validators.required]],
-      item: ['', [Validators.required]],
-      prquantity: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      create: ['', [Validators.required]]
+      purchase_user: ['', [Validators.required]],
+      purchase_code: ['', ],
+      purchase_company: ['', [Validators.required]],
+      purchase_department: ['', [Validators.required]],
+      purchase_item: ['', [Validators.required]],
+      purchase_prquantity: ['', [Validators.required]],
+      purchase_price: ['', [Validators.required]],
+      created_by: ['', [Validators.required]]
     });
 
   }
 
   apiData!: ApiService[];
 
+  // 取得api service定義API
+  getAll() {
+    this.HttpApi.getAllRequest(1).subscribe(request => {
+      this.apiData = request.body.purchase;
+      console.log(this.apiData);
+    });
+  }
+
   //C
   post(): void {
     // 使用雙向繫結將值帶入body
-    let purchase = {
+    let body = {
       // 另title(要post的欄位) = 表單控制元件'title'的值
-      user: this.data['user'].value,
-      id: this.data['id'].value,
-      company: this.data['company'].value,
-      department: this.data['department'].value,
-      item: this.data['item'].value,
-      prquantity: this.data['prquantity'].value,
-      price: this.data['price'].value,
-      create: this.data['create'].value,
+      purchase_user: this.form.controls['purchase_user'].value,
+      //purchase_id: this.form.controls['purchase_id'].value,
+      purchase_company: this.form.controls['purchase_company'].value,
+      purchase_department: this.form.controls['purchase_department'].value,
+      purchase_item: this.form.controls['purchase_item'].value,
+      purchase_prquantity: Number(this.form.controls['purchase_prquantity'].value),
+      purchase_price: Number(this.form.controls['purchase_price'].value),
+      created_by: this.form.controls['created_by'].value,
     }
+    console.log(body)
     // 請求post api
-    this.HttpApi.postRequest(purchase)
+    this.HttpApi.postRequest(body)
       .subscribe(request => {
         console.log(request)
       })
@@ -67,52 +77,40 @@ export class PurchaseComponent {
       icon: 'success',
       title: '儲存完畢',
     })
-    this.purchase.push(purchase);
+    this.getAll()
+    this.addData=false;
   }
 
 
-  id: any;
+
   ngOnInit(): void {
-    // 擷取特定路徑的路由參數
-    this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
-    this.getOne(this.id);
-
-    this.purchase = [
-      { user: 'pen', id: 'P-1', company: '這是筆', department: '業務部' },
-      { user: 'apple', id: 'P-2', company: '這是蘋果', department: '技術部' },
-    ];
+    // this.getAll()
   }
 
-  data: any = [{
-    user: ['', [Validators.required]],
-    id: ['', [Validators.required]],
-    company: ['', [Validators.required]],
-    department: ['', [Validators.required]],
-    item: ['', [Validators.required]],
-    prquantity: ['', [Validators.required]],
-    price: ['', [Validators.required]]
-  },];
+  // 懶加載
+  loadPostsLazy(event: LazyLoadEvent) {
+    const page = (event.first! / event.rows!) + 1;
+    this.HttpApi.getAllRequest(page).subscribe(request => {
+      this.apiData = request.body.purchase;
+      console.log(this.apiData);
+    });
+  }
 
-  add(): void {
-    const newData = {
-      user: "",
-      id: '',
-      company: '',
-      department: '',
-      item: '',
-      prquantity: '0',
-      price: '0'
-    };
-    this.addData = false; //addDate的dialog
-    Swal.fire({
-      icon: 'success',
-      title: '儲存完畢',
-    })
-    this.purchase.push(newData);
-    // this.data = newData;
-    // console.log("data.user" + this.data)
-    // console.log("purchase" + JSON.stringify(newData))
+  // data: any = [{
+  //   purchase_user: ['', [Validators.required]],
+  //   //purchase_id: ['', [Validators.required]],
+  //   purchase_company: ['', [Validators.required]],
+  //   purchase_department: ['', [Validators.required]],
+  //   purchase_item: ['', [Validators.required]],
+  //   purchase_prquantity: ['', [Validators.required]],
+  //   purchase_price: ['', [Validators.required]],
+  //   created_by:['', [Validators.required]]
+  // },];
+
+
+  newDialog(): void {
+    this.form.reset()
+    this.addData = true;
   }
 
   //R
@@ -126,56 +124,73 @@ export class PurchaseComponent {
 
   //showDialog（U
   editDialog(purchase: any): void {
-    this.data = purchase;
-    console.log("data.id" + this.data.user)
+    // console.log("this.data.id" + purchase.purchase_user)
     this.visible = true;
-    console.log("purchase" + JSON.stringify(purchase))
+    console.log("this.data" + JSON.stringify(purchase))
+    this.form.patchValue(purchase)
+    this.id = purchase.purchase_id
+    console.log(this.id)
   }
 
-  patch(): void {
-    let id = this.form.controls['id'].value
+  patch(id:any): void {
     let body = {
-      title: this.form.controls['title'].value,
-      body: this.form.controls['body'].value,
-      userId: this.form.controls['userId'].value
+      purchase_user: this.form.get('purchase_user')?.value,
+      //purchase_id: this.form.controls['purchase_id'].value,
+      purchase_company: this.form.get('purchase_company')?.value,
+      purchase_department: this.form.get('purchase_department')?.value,
+      purchase_item: this.form.get('purchase_item')?.value,
+      purchase_prquantity: this.form.get('purchase_prquantity')?.value,
+      purchase_price: this.form.get('purchase_price')?.value,
+      created_by: this.form.get('created_by')?.value,
     }
     this.HttpApi.patchRequest(id, body)
       .subscribe(request => {
         console.log(request)
       })
-  }
-
-  //D
-  delete(selectedData: any) {
-    const index = this.purchase.indexOf(selectedData);
-    if (index > -1) {
-      this.purchase.splice(index, 1);
-      Swal.fire({
-        title: 'Are you sure?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire(
-            '刪除成功'
-          )
-        }
-      })
-    }
-
-  }
-
-  confirm(): void {
     this.visible = false;
     this.addData = false;
+    this.getAll()
     Swal.fire({
       icon: 'success',
       title: '儲存完畢',
     })
   }
+
+  //D
+  delete(id: any) {
+    // const index = this.data.indexOf(selectedData);
+    // if (index > -1) {
+    // this.data.splice(index, 1);
+    Swal.fire({
+      title: 'Are you sure?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.HttpApi.deleteRequest(id)
+          .subscribe(request => {
+            console.log(request)
+            Swal.fire(
+              '刪除成功'
+            )
+          }
+          )
+          this.getAll()
+      }
+    })
+  }
+
+  // confirm(): void {
+  //   this.visible = false;
+  //   this.addData = false;
+  //   Swal.fire({
+  //     icon: 'success',
+  //     title: '儲存完畢',
+  //   })
+  // }
 
   cancel(): void {
     this.visible = false;

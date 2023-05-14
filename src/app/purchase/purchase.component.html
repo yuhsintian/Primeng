@@ -3,19 +3,12 @@
   <p-card>
     <h3>設備請購單</h3>
     <div style="display: flex; justify-content: flex-end; align-items: flex-start">
-      <p-button (click)="addData = true" pTooltip="新增" tooltipPosition="top" icon="pi pi-plus"
+      <p-button (click)="newDialog()" pTooltip="新增" tooltipPosition="top" icon="pi pi-plus"
         styleClass="p-button-text"></p-button>
     </div>
-    <!-- 新增按鈕 -->
-    <!-- <ng-template pTemplate="caption">
-      <div style="display: flex; justify-content: flex-end">
-
-        <p-button (click)="addData=true" pTooltip="新增" tooltipPosition="top" icon="pi pi-plus"
-          styleClass="p-button-text"></p-button>
-      </div>
-    </ng-template> -->
     <p-divide></p-divide>
-    <p-table [value]="purchase" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="apiData" [lazy]="true" [totalRecords]="100" [rows]="10" [paginator]="true"
+    (onLazyLoad)="loadPostsLazy($event)">
 
       <ng-template pTemplate="header">
         <tr>
@@ -29,13 +22,13 @@
       </ng-template>
       <ng-template pTemplate="body" let-purchase>
         <tr>
-          <td>{{ purchase.user }}</td>
-          <td>{{ purchase.id }}</td>
-          <td>{{ purchase.company }}</td>
-          <td>{{ purchase.department }}</td>
+          <td>{{ purchase.purchase_user }}</td>
+          <td>{{ purchase.purchase_code }}</td>
+          <td>{{ purchase.purchase_company }}</td>
+          <td>{{ purchase.purchase_department }}</td>
           <td><p-button (click)="editDialog(purchase)" icon="pi pi-pencil"
               styleClass="p-button-rounded p-button-secondary p-button-outlined"></p-button></td>
-          <td><p-button (click)="delete(purchase)" icon="pi pi-trash"
+          <td><p-button (click)="delete(purchase.purchase_id)" icon="pi pi-trash"
               styleClass="p-button-rounded p-button-secondary p-button-outlined"></p-button></td>
         </tr>
       </ng-template>
@@ -43,7 +36,7 @@
   </p-card>
 </div>
 
-
+<!-- 編輯 -->
 <!--新增formGroup-->
 <!--新增formControlName-->
 <form [formGroup]="form">
@@ -52,40 +45,40 @@
     <div class="formgrid grid">
       <div class="field col-6">
         <label><span class="required">*</span> 申請人</label>
-        <input pInputText>
+        <input pInputText formControlName="purchase_user">
       </div>
       <div class="field col-6">
         <dt>請購編號：</dt>
         <p>
-          <dd>{{data.id}}</dd>
+          <dd>{{(form.controls['purchase_code'].value)}}</dd>
         </p>
       </div>
       <div class="field col-6">
         <label><span class="required">*</span>公司名稱</label>
-        <input pInputText>
+        <input pInputText formControlName="purchase_company">
       </div>
       <div class="field col-6">
         <label> <span class="required">*</span>請購部門</label>
-        <input pInputText>
+        <input pInputText formControlName="purchase_department">
       </div>
       <div class="field col-6">
         <label> <span class="required">*</span>品名</label>
-        <input pInputText>
+        <input pInputText formControlName="purchase_item">
       </div>
       <div class="field col-6">
         <label> <span class="required">*</span>請購數量</label>
-        <input pInputText>
+        <input pInputText formControlName="purchase_prquantity">
       </div>
       <div class="field col-6">
         <label><span class="required">*</span>單價</label>
-        <input pInputText>
+        <input pInputText formControlName="purchase_price">
       </div>
       <div class="field col-6">
         <label><span class="required">*</span>創建者</label>
-        <input pInputText>
+        <input pInputText formControlName="created_by">
       </div>
       <div class="ml-auto">
-        <p-button (click)="confirm()" label="儲存" styleClass="p-button-outlined p-button-info"></p-button>
+        <p-button (click)="patch(id)" label="儲存" styleClass="p-button-outlined p-button-info"></p-button>
         <p-button styleClass="p-button-secondary" (click)="cancel()" label="取消"></p-button>
       </div>
     </div>
@@ -93,42 +86,46 @@
 </form>
 
 
-<!--Dialog-->
+<!-- 新增 -->
+<!--新增formGroup-->
+<!--新增formControlName-->
+<form [formGroup]="form">
+<!--新增Dialog-->
 <p-dialog [(visible)]="addData" header="新增">
   <div class="formgrid grid">
     <div class="field col-6">
       <label><span class="required">*</span> 申請人</label>
-      <input pInputText>
+      <input pInputText formControlName="purchase_user">
     </div>
     <div class="field col-6">
       <dt>請購編號：</dt>
       <p>
-        <dd>{{data.id}}</dd>
+        <dd></dd>
       </p>
     </div>
     <div class="field col-6">
       <label> <span class="required">*</span>公司名稱</label>
-      <input pInputText>
+      <input pInputText formControlName="purchase_company">
     </div>
     <div class="field col-6">
       <label> <span class="required">*</span>請購部門</label>
-      <input pInputText>
+      <input pInputText formControlName="purchase_department">
     </div>
     <div class="field col-6">
       <label><span class="required">*</span>品名</label>
-      <input pInputText>
+      <input pInputText formControlName="purchase_item">
     </div>
     <div class="field col-6">
       <label><span class="required">*</span>請購數量</label>
-      <input pInputText>
+      <input pInputText formControlName="purchase_prquantity">
     </div>
     <div class="field col-6">
       <label> <span class="required">*</span>單價</label>
-      <input pInputText>
+      <input pInputText formControlName="purchase_price">
     </div>
     <div class="field col-6">
       <label> <span class="required">*</span>創建者</label>
-      <input pInputText>
+      <input pInputText formControlName="created_by">
     </div>
     <div class="ml-auto">
       <p-button styleClass="p-button-outlined p-button-info" (click)="post()" label="新增"></p-button>
@@ -136,3 +133,4 @@
     </div>
   </div>
 </p-dialog>
+</form>
